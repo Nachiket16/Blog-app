@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Collapse,
   Navbar,
@@ -12,24 +12,20 @@ import {
   DropdownMenu,
   DropdownItem,
   NavbarText,
-} from 'reactstrap';
+} from "reactstrap";
 
 const CustomNavbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
-      <Navbar color='dark'
-      dark
-      expand='md'
-      fixed=''>
+      <Navbar color="dark" dark expand="md" fixed="">
         <NavbarBrand href="/">Mintifi</NavbarBrand>
-        <NavbarToggler onClick={function noRefCheck(){}} />
-        <Collapse navbar>
+        <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
+        <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <NavLink href="https://docs.mintifi.com">
-                Docs
-              </NavLink>
+              <NavLink href="https://docs.mintifi.com">Docs</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/login">Login</NavLink>
@@ -44,19 +40,16 @@ const CustomNavbar = () => {
               <DropdownToggle nav caret>
                 More
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu>
                 <DropdownItem>Option 1</DropdownItem>
                 <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
         </Collapse>
       </Navbar>
     </div>
   );
-}
+};
 
 export default CustomNavbar;
