@@ -14,6 +14,7 @@ import {
 import Base from "../component/Base";
 import { useEffect, useState } from "react";
 import { signUp } from "../services/user-service";
+
 const Signup = () => {
   const [data, setData] = useState({
     name: "",
@@ -44,12 +45,18 @@ const Signup = () => {
     //validate data
     console.log(data);
     //send data to api
+    signUp(data).then((resp)=>{
+      console.log(resp);
+      console.log("Success log");
+    }).catch((error)=>{
+      console.log(error);
+      console.log("error log");
+    })
   };
 
   return (
     <Base>
       <Container style={{ marginTop: "5%" }}>
-        {JSON.stringify(data)}
         <Row>
           <Col sm={{ size: 6, offset: 3 }}>
             <Card>
@@ -97,7 +104,7 @@ const Signup = () => {
                       type="textarea"
                       placeholder="Enter here"
                       id="about"
-                      style={{ height: "250px" }}
+                      style={{ height: "100px" }}
                       onChange={(e) => handleChange(e, "about")}
                       value={data.about}
                     ></Input>
