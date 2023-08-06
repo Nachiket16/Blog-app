@@ -7,3 +7,5 @@ export const signUp = (user) => {
     .then((response) => response.data);
 };
 
+
+
