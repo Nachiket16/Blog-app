@@ -10,10 +10,12 @@ import {
   Button,
   Row,
   Col,
+  FormFeedback,
 } from "reactstrap";
 import Base from "../component/Base";
 import { useEffect, useState } from "react";
 import { signUp } from "../services/user-service";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -43,14 +45,27 @@ const Signup = () => {
   const submitForm = (event) => {
     event.preventDefault();
     //validate data
+
     console.log(data);
     //send data to api
     signUp(data).then((resp)=>{
       console.log(resp);
       console.log("Success log");
+      toast.success("User is registered successfully with user id : "+resp.id );
+      setData({
+        name: "",
+        email: "",
+        password: "",
+        about: "",
+      })
     }).catch((error)=>{
       console.log(error);
-      console.log("error log");
+      console.log("Error log");
+      //Handle Exception
+      setError({
+        errors:error,
+        isError:true
+      })
     })
   };
 
@@ -75,7 +90,11 @@ const Signup = () => {
                       id="name"
                       onChange={(e) => handleChange(e, "name")}
                       value={data.name}
-                    ></Input>
+                      invalid={error.errors?.response?.data?.name ?true:false}
+                    />
+                    <FormFeedback>
+                      {error.errors?.response?.data?.name}
+                    </FormFeedback>
                   </FormGroup>
                   <FormGroup>
                     <Label for="name">Enter Email</Label>
