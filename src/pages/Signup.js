@@ -48,25 +48,29 @@ const Signup = () => {
 
     console.log(data);
     //send data to api
-    signUp(data).then((resp)=>{
-      console.log(resp);
-      console.log("Success log");
-      toast.success("User is registered successfully with user id : "+resp.id );
-      setData({
-        name: "",
-        email: "",
-        password: "",
-        about: "",
+    signUp(data)
+      .then((resp) => {
+        console.log(resp);
+        console.log("Success log");
+        toast.success(
+          "User is registered successfully with user id : " + resp.id
+        );
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          about: "",
+        });
       })
-    }).catch((error)=>{
-      console.log(error);
-      console.log("Error log");
-      //Handle Exception
-      setError({
-        errors:error,
-        isError:true
-      })
-    })
+      .catch((error) => {
+        console.log(error);
+        console.log("Error log");
+        //Handle Exception
+        setError({
+          errors: error,
+          isError: true,
+        });
+      });
   };
 
   return (
@@ -90,7 +94,9 @@ const Signup = () => {
                       id="name"
                       onChange={(e) => handleChange(e, "name")}
                       value={data.name}
-                      invalid={error.errors?.response?.data?.name ?true:false}
+                      invalid={
+                        error.errors?.response?.data?.name ? true : false
+                      }
                     />
                     <FormFeedback>
                       {error.errors?.response?.data?.name}
@@ -104,7 +110,13 @@ const Signup = () => {
                       id="email"
                       onChange={(e) => handleChange(e, "email")}
                       value={data.email}
+                      invalid={
+                        error.errors?.response?.data?.email ? true : false
+                      }
                     ></Input>
+                    <FormFeedback>
+                      {error.errors?.response?.data?.email}
+                    </FormFeedback>
                   </FormGroup>
                   <FormGroup>
                     <Label for="name">Enter Password</Label>
@@ -114,9 +126,14 @@ const Signup = () => {
                       id="password"
                       onChange={(e) => handleChange(e, "password")}
                       value={data.password}
+                      invalid={
+                        error.errors?.response?.data?.password ? true : false
+                      }
                     ></Input>
+                    <FormFeedback>
+                      {error.errors?.response?.data?.password}
+                    </FormFeedback>
                   </FormGroup>
-
                   <FormGroup>
                     <Label for="name">About</Label>
                     <Input
@@ -126,7 +143,13 @@ const Signup = () => {
                       style={{ height: "100px" }}
                       onChange={(e) => handleChange(e, "about")}
                       value={data.about}
+                      invalid={
+                        error.errors?.response?.data?.about ? true : false
+                      }
                     ></Input>
+                    <FormFeedback>
+                      {error.errors?.response?.data?.about}
+                    </FormFeedback>
                   </FormGroup>
 
                   <Container className="text-center">

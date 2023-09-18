@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {getCurrentUserDetail, isLoggedIn} from "../auth"
 import {
   Collapse,
   Navbar,
@@ -17,9 +18,17 @@ import {
 const CustomNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [login,setLogin] = useState(false)
+  const[user,setUser] = useState(undefined)
+
+  useEffect(()=>{ 
+    setLogin(isLoggedIn())
+    setUser(getCurrentUserDetail)
+  },[login])
+
   return (
     <div>
-      <Navbar color="dark" dark expand="md" fixed="">
+      <Navbar color="dark" dark expand="md" fixed="" className="px-5">
         <NavbarBrand href="/">Mintifi</NavbarBrand>
         <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>
@@ -28,10 +37,7 @@ const CustomNavbar = () => {
               <NavLink href="https://docs.mintifi.com">Docs</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/login">Login</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/signup">Signup</NavLink>
+              <NavLink href="/">Home</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/about">About</NavLink>
@@ -41,10 +47,18 @@ const CustomNavbar = () => {
                 More
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem>Contact us</DropdownItem>
+                <DropdownItem href="https://github.com/Nachiket16">Github</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+          </Nav>
+          <Nav navbar >
+          <NavItem>
+              <NavLink href="/login">Login</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/signup">Signup</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
