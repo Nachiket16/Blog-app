@@ -1,8 +1,15 @@
 import React from "react";
-const UserDashBoard = () =>{
-    return(
-        <div>Welcome to user dashboard</div>
-    )
-}
+import Base from "../../component/Base";
+import AddPost from "../../component/AddPost";
+import { Container } from "reactstrap";
+const UserDashBoard = () => {
+  return (
+    <Base>
+      <Container>
+        <AddPost />
+      </Container>
+    </Base>
+  );
+};
 
 export default UserDashBoard;

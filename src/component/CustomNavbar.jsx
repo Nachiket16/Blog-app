@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCurrentUserDetail, isLoggedIn } from "../auth";
+import { doLogout, getCurrentUserDetail, isLoggedIn } from "../auth";
 import {
   Collapse,
   Navbar,
@@ -14,8 +14,10 @@ import {
   DropdownItem,
   NavbarText,
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 const CustomNavbar = () => {
+  let navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const [login, setLogin] = useState(false);
@@ -23,8 +25,15 @@ const CustomNavbar = () => {
 
   useEffect(() => {
     setLogin(isLoggedIn());
-    setUser(getCurrentUserDetail);
+    setUser(getCurrentUserDetail());
   }, [login]);
+
+  const logout = () => {
+    doLogout(() => {
+      setLogin(false);
+      navigate("/");
+    });
+  };
 
   return (
     <div>
@@ -55,12 +64,30 @@ const CustomNavbar = () => {
             </UncontrolledDropdown>
           </Nav>
           <Nav navbar>
-            <NavItem>
-              <NavLink href="/login">Login</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/signup">Signup</NavLink>
-            </NavItem>
+            {login && (
+              <>
+              <NavItem>
+                  <NavLink href="/user/profile-info">Profile Info</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink>{user.email}</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={logout}>Logout</NavLink>
+                </NavItem>
+              </>
+            )}
+
+            {!login && (
+              <>
+                <NavItem>
+                  <NavLink href="/login">Login</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/signup">Signup</NavLink>
+                </NavItem>
+              </>
+            )}
           </Nav>
         </Collapse>
       </Navbar>

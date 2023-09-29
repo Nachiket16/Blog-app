@@ -1,10 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import Base from "../../component/Base";
 function ProfileInfo() {
-    
   return (
-    <div>ProfileInfo</div>
-  )
+    <Base>
+      <div>Profile-Info</div>
+    </Base>
+  );
 }
 
-export default ProfileInfo
+export default ProfileInfo;
